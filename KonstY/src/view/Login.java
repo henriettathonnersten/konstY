@@ -28,7 +28,6 @@ public class Login extends Application {
 		launch();
 	}
 
-
 	@Override
 	public void start(Stage base) throws Exception {
 
@@ -61,7 +60,12 @@ public class Login extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				base.close();
-				new SignUp().start(new Stage());
+				try {
+					new SignUp().start(new Stage());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		Button loginButton = new Button("Login");
@@ -78,7 +82,7 @@ public class Login extends Application {
 		root.setCenter(vBox);
  		//root.getChildren().addAll(Arrays.asList(, emailTextField, passwordTextField));
 		
-		Scene scene = new Scene(root, 600, 400);
+		Scene scene = new Scene(root, 1000, 600);
 		File f = new File("Login.css");
 		scene.getStylesheets().clear();
 		scene.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));

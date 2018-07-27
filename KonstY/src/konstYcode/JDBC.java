@@ -70,4 +70,33 @@ public class JDBC {
 		return returnStatement;
 
 	}
+	
+	public String addUser(String username, String email, String password, String street, 
+				String houseNumber, String apartment, String postcode, String city, String county) {
+		
+		try {
+			connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+			statement = connection.createStatement();
+			String postcodeQuery = "INSERT INTO postcode (postcode, street, city, county) VALUES ('" + 
+			postcode + "', '" + street + "', '" + city  +  "', '" + county + "')";		
+			//System.out.println(postcodeQuery);			
+			statement.executeUpdate(postcodeQuery);
+			
+			String addressQuery = "INSERT INTO address (houseNo, postcode) VALUES (" + houseNumber + ", '" + postcode + "');";		
+			//System.out.println(addressQuery);			
+			statement.executeUpdate(addressQuery);
+			
+			String userQuery = "INSERT INTO konstyuser (email, password, name, defaultHouseNo, defaultPostcode) VALUES ('" + 
+					email + "', '" + password + "', '" + username + "', " + houseNumber + ", '" + postcode + "');";
+			//System.out.println(userQuery);			
+			statement.executeUpdate(userQuery);			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+		return "hej";
+	}
 }
